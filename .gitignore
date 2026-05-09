@@ -1,0 +1,12 @@
+# Sanal ortam
+venv/
+
+# Python önbellek dosyaları
+__pycache__/
+*/__pycache__/
+
+# Veri seti klasörü
+data/
+
+# Model ağırlıkları (best_deepfake_model.pth dahil)
+*.pth
