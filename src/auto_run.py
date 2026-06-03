@@ -3,54 +3,50 @@ from train import train_model
 
 def main():
     print("="*60)
-    print("🤖 TAM OTOMATİK DEEPFAKE EĞİTİM BORU HATTI BAŞLATILIYOR 🤖")
+    print("🤖 VISION TRANSFORMER (ViT) EĞİTİM BORU HATTI BAŞLATILIYOR 🤖")
     print("="*60)
+    print("Not: EfficientNet, SimpleCNN ve ResNet18 zaten eğitildiği için güvende.\n")
 
     # ---------------------------------------------------------
-    # ADIM 1: EFFICIENTNET PSO (ZATEN BULUNDU, SÜREYİ KURTARIYORUZ)
+    # SADECE ViT İÇİN SÜRECİ ÇALIŞTIRIYORUZ
     # ---------------------------------------------------------
-    print("\n[ADIM 1/4] EFFICIENTNET PSO ZATEN HESAPLANDI (ATLANARAK DEVAM EDİLİYOR...)")
-    # Terminalde gördüğümüz senin sonuçlarını buraya manuel yazdık
-    best_lr_eff = 0.00041
-    best_drop_eff = 0.30
-    best_batch_eff = 32
+    
+    # 1. ViT İÇİN PSO
+    print("[ADIM 1/2] VISION TRANSFORMER (ViT) İÇİN PSO HESAPLAMASI BAŞLIYOR...")
+    best_lr_vit, best_drop_vit, best_batch_vit = run_pso(model_name="ViT")
 
-    # ---------------------------------------------------------
-    # ADIM 2: SIMPLE CNN PSO HESAPLAMASI
-    # ---------------------------------------------------------
+    # 2. ViT İÇİN EĞİTİM
     print("\n" + "="*60)
-    print("[ADIM 2/4] SIMPLE CNN İÇİN PSO HESAPLAMASI BAŞLIYOR...")
-    best_lr_cnn, best_drop_cnn, best_batch_cnn = run_pso(model_name="SimpleCNN")
-
-    # ---------------------------------------------------------
-    # ADIM 3: EFFICIENTNET TRAIN
-    # ---------------------------------------------------------
-    print("\n" + "="*60)
-    print("[ADIM 3/4] EFFICIENTNET EĞİTİMİ (TRAIN) BAŞLIYOR...")
+    print("[ADIM 2/2] VISION TRANSFORMER (ViT) EĞİTİMİ (TRAIN) BAŞLIYOR...")
     train_model(
-        model_name="EfficientNet", 
-        learning_rate=best_lr_eff, 
-        dropout_rate=best_drop_eff, 
-        batch_size=best_batch_eff
-    )
-
-    # ---------------------------------------------------------
-    # ADIM 4: SIMPLE CNN TRAIN
-    # ---------------------------------------------------------
-    print("\n" + "="*60)
-    print("[ADIM 4/4] SIMPLE CNN EĞİTİMİ (TRAIN) BAŞLIYOR...")
-    train_model(
-        model_name="SimpleCNN", 
-        learning_rate=best_lr_cnn, 
-        dropout_rate=best_drop_cnn, 
-        batch_size=best_batch_cnn
+        model_name="ViT", 
+        learning_rate=best_lr_vit, 
+        dropout_rate=best_drop_vit, 
+        batch_size=best_batch_vit
     )
 
     print("\n" + "="*60)
-    print("🎉 TÜM İŞLEMLER BAŞARIYLA TAMAMLANDI!")
-    print("Elinde iki adet eğitilmiş modelin ve grafiklerin var.")
-    print("Artık predict.py dosyasını çalıştırıp test edebilirsin.")
+    print("🎉 VISION TRANSFORMER (ViT) BAŞARIYLA SİSTEME EKLENDİ VE EĞİTİLDİ!")
+    print("Artık 4'lü Akademik Komite hazır. predict.py dosyasını çalıştırıp test edebilirsin.")
     print("="*60)
+
+    # =====================================================================
+    # NOT: İLERİDE TÜM MODELLERİ SIFIRDAN EĞİTMEK İSTERSEN AŞAĞIDAKİ
+    # YORUM SATIRLARINI KALDIRABİLİRSİN. (ŞU ANKİ EMEKLERİNİ KORUMAK İÇİN KAPALI)
+    # =====================================================================
+    """
+    # EFFICIENTNET
+    best_lr_eff, best_drop_eff, best_batch_eff = run_pso("EfficientNet")
+    train_model("EfficientNet", best_lr_eff, best_drop_eff, best_batch_eff)
+    
+    # RESNET18
+    best_lr_res, best_drop_res, best_batch_res = run_pso("ResNet18")
+    train_model("ResNet18", best_lr_res, best_drop_res, best_batch_res)
+    
+    # SIMPLECNN
+    best_lr_cnn, best_drop_cnn, best_batch_cnn = run_pso("SimpleCNN")
+    train_model("SimpleCNN", best_lr_cnn, best_drop_cnn, best_batch_cnn)
+    """
 
 if __name__ == "__main__":
     main()

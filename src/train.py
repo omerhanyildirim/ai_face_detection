@@ -5,7 +5,7 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 from dataset import get_data_loaders
-from model import SimpleCNN, EfficientNetDeepfake
+from model import SimpleCNN, EfficientNetDeepfake, ResNet18Deepfake, ViTDeepfake
 
 def train_model(model_name, learning_rate, dropout_rate, batch_size):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -16,12 +16,19 @@ def train_model(model_name, learning_rate, dropout_rate, batch_size):
     train_loader, valid_loader = get_data_loaders(batch_size=batch_size)
     if train_loader is None: return
 
+    # OTOMATİK MODEL SEÇİMİ VE KAYIT YOLU (4 MODEL DESTEKLİ)
     if model_name == "SimpleCNN":
         model = SimpleCNN(dropout_rate=dropout_rate).to(device)
         save_path = "best_deepfake_model.pth"
     elif model_name == "EfficientNet":
         model = EfficientNetDeepfake(dropout_rate=dropout_rate).to(device)
         save_path = "best_effnet_model.pth"
+    elif model_name == "ResNet18":
+        model = ResNet18Deepfake(dropout_rate=dropout_rate).to(device)
+        save_path = "best_resnet18_model.pth"
+    elif model_name == "ViT":
+        model = ViTDeepfake(dropout_rate=dropout_rate).to(device)
+        save_path = "best_vit_model.pth"
 
     criterion = nn.BCEWithLogitsLoss()
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
@@ -97,6 +104,7 @@ def train_model(model_name, learning_rate, dropout_rate, batch_size):
             print("🛑 Erken Durdurma Tetiklendi!")
             break 
 
+    # Grafikleri modele özel kaydet
     plt.figure(figsize=(14, 5)) 
     plt.subplot(1, 2, 1)
     plt.plot(history['train_loss'], label='Eğitim', color='blue')
