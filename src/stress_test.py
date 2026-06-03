@@ -48,7 +48,7 @@ def stress_predict(image_path, model_path="best_deepfake_model.pth"):
             logits = model(input_tensor)
             prob = torch.sigmoid(logits).item()
 
-        result = "FAKE 🚨" if prob > 0.5 else "REAL ✅"
+        result = "FAKE" if prob > 0.5 else "REAL"
                         # Olasılık değerini sonuca göre ayarla
         confidence = prob if prob > 0.5 else (1 - prob)
         

@@ -1,9 +1,9 @@
 import torch
 import torch.nn as nn
 import torch.nn.init as init
+import torchvision.models as models
 
 class SimpleCNN(nn.Module):
-    # Dropout oranını dışarıdan alacak şekilde güncellendi
     def __init__(self, dropout_rate=0.5):
         super(SimpleCNN, self).__init__()
         
@@ -28,7 +28,6 @@ class SimpleCNN(nn.Module):
         self.bn4 = nn.BatchNorm1d(512) 
         self.relu4 = nn.LeakyReLU(0.1)
         
-        # Dinamik dropout katmanı
         self.dropout = nn.Dropout(dropout_rate)
         
         self.fc2 = nn.Linear(in_features=512, out_features=1)
@@ -54,3 +53,16 @@ class SimpleCNN(nn.Module):
         x = self.dropout(self.relu4(self.bn4(self.fc1(x))))
         x = self.fc2(x) 
         return x
+
+class EfficientNetDeepfake(nn.Module):
+    def __init__(self, dropout_rate=0.5):
+        super(EfficientNetDeepfake, self).__init__()
+        self.efficientnet = models.efficientnet_b0(weights=models.EfficientNet_B0_Weights.DEFAULT)
+        in_features = self.efficientnet.classifier[1].in_features
+        self.efficientnet.classifier = nn.Sequential(
+            nn.Dropout(p=dropout_rate, inplace=True),
+            nn.Linear(in_features, 1)
+        )
+
+    def forward(self, x):
+        return self.efficientnet(x)

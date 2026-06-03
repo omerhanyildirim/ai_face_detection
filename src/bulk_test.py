@@ -66,15 +66,15 @@ def bulk_test(test_dir="../data/real_vs_fake/test", model_path="best_deepfake_mo
     overall_acc = ((stats['real']['correct'] + stats['fake']['correct']) / (stats['real']['total'] + stats['fake']['total']) * 100)
 
     print("\n" + "="*50)
-    print("📊 VERİ SETİ DOĞRULUK RAPORU")
+    print("VERİ SETİ DOĞRULUK RAPORU")
     print("="*50)
-    print(f"✅ REAL Datasetindeki Doğruluk : %{real_acc:.2f}")
+    print(f"REAL Datasetindeki Doğruluk : %{real_acc:.2f}")
     print(f"   ({stats['real']['correct']} / {stats['real']['total']} doğru)")
     print("-" * 50)
-    print(f"🚨 FAKE Datasetindeki Doğruluk : %{fake_acc:.2f}")
+    print(f"FAKE Datasetindeki Doğruluk : %{fake_acc:.2f}")
     print(f"   ({stats['fake']['correct']} / {stats['fake']['total']} doğru)")
     print("-" * 50)
-    print(f"⭐ Genel Başarı Oranı         : %{overall_acc:.2f}")
+    print(f"Genel Başarı Oranı         : %{overall_acc:.2f}")
     print("="*50)
 
 if __name__ == "__main__":
