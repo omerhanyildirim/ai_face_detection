@@ -8,7 +8,6 @@ from tqdm import tqdm
 def bulk_test(test_dir="../data/real_vs_fake/test", model_path="best_deepfake_model.pth"):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
-    # Modeli yükle
     model = SimpleCNN().to(device)
     model.load_state_dict(torch.load(model_path, map_location=device, weights_only=True))
     model.eval()
@@ -19,7 +18,6 @@ def bulk_test(test_dir="../data/real_vs_fake/test", model_path="best_deepfake_mo
         transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
     ])
 
-    # İstatistikler
     stats = {
         'real': {'correct': 0, 'total': 0},
         'fake': {'correct': 0, 'total': 0}

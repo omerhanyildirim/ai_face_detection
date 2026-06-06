@@ -2,8 +2,8 @@ import torch
 import torch.nn as nn
 import torch.nn.init as init
 import torchvision.models as models
-import torch.nn.functional as F # Bunu en üste import kısmına eklemeyi unutma!
 
+# SimpleCNN
 class SimpleCNN(nn.Module):
     def __init__(self, dropout_rate=0.5):
         super(SimpleCNN, self).__init__()
@@ -49,6 +49,7 @@ class SimpleCNN(nn.Module):
         x = self.fc2(x) 
         return x
 
+# EfficientNetDeepfake
 class EfficientNetDeepfake(nn.Module):
     def __init__(self, dropout_rate=0.5):
         super(EfficientNetDeepfake, self).__init__()
@@ -62,7 +63,7 @@ class EfficientNetDeepfake(nn.Module):
     def forward(self, x):
         return self.efficientnet(x)
 
-# YENİ EKLENEN RESNET18 MODELİ
+# RESNET18
 class ResNet18Deepfake(nn.Module):
     def __init__(self, dropout_rate=0.5):
         super(ResNet18Deepfake, self).__init__()
@@ -75,21 +76,3 @@ class ResNet18Deepfake(nn.Module):
 
     def forward(self, x):
         return self.resnet(x)
-    
-
-# YENİ EKLENEN VİSİON TRANSFORMER (ViT) MODELİ
-class ViTDeepfake(nn.Module):
-    def __init__(self, dropout_rate=0.5):
-        super(ViTDeepfake, self).__init__()
-        self.vit = models.vit_b_16(weights=models.ViT_B_16_Weights.DEFAULT)
-        in_features = self.vit.heads.head.in_features
-        self.vit.heads.head = nn.Sequential(
-            nn.Dropout(p=dropout_rate, inplace=True),
-            nn.Linear(in_features, 1)
-        )
-
-    def forward(self, x):
-        # ViT zorunlu olarak 224x224 resim ister.
-        # Sistemdeki 128x128 resimleri bozmamak için modelin içinde anlık büyütüyoruz:
-        x = F.interpolate(x, size=(224, 224), mode='bilinear', align_corners=False)
-        return self.vit(x)

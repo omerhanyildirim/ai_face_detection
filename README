@@ -1,0 +1,59 @@
+======================================================================================================================================
+SINIFLAR VE KULLANIM ALANLARI
+======================================================================================================================================
+auto_run.py     :   Projedeki eğitim ve optimizasyon süreçlerini yönetecek sınıftır. Her model için bu işlemleri yapar.
+dataset.py      :   Resimleri klasörlerden okur, standart boyutlara (128x128) küçültür, renkleri normalize eder.
+model.py        :   Kullanılan modellerin (SimpleCNN, EfficientNet, ResNet18) özelliklerini belirleyen dosyadır.
+predict.py      :   Manuel olarak seçilen bir görsel 3 model tarafından yorumlanır.
+pso_tune.py     :   Optimizasyon işlemleri gerçekleşir.
+test.py         :   Test işlemleri yapılır.
+train.py        :   Eğitim işlemleri yapılır
+======================================================================================================================================
+SINIFLARIN KULLANIM SIRASI
+======================================================================================================================================
+-dataset.py
+-model.py
+-auto_run.py
+-pso_tune.py
+-train.py   --> MODELLER KAYDEDİLMİŞ OLACAKTIR
+-test.py    --> TESTLER YAPILMIŞ OLACAKTIR
+-predict.py --> KULLANIM ZORUNLU DEĞİLDİR, DATASET DIŞI GÖRSELLERİ KONTROL İÇİN İDEALDİR.
+======================================================================================================================================
+PROJE ÇALIŞMA MANTIĞI
+======================================================================================================================================
+Proje, yüz fotoğraflarının gerçek bir insana mı yoksa yapay zekaya mı ait olduğunu tespit etmek amacıyla yapılmıştır. 
+Bu tespiti yapmak için tek bir modele güvenmek yerine, üç farklı modelin birleşiminden oluşan bir Üçlü Karar Komitesi kullanılmıştır.
+
+Kullanılan Modeller:
+ResNet18 (%55): Yüzün genel anatomik yapısına ve çene hatlarına bakar. Testlerde en yüksek başarıyı bu model verdiği için karardaki en büyük pay buna verilmiştir.
+EfficientNet (%30): Yüzdeki mikroskobik doku ve piksel hatalarını inceler.
+SimpleCNN (%15): Bariz renk ve temel şekil bozukluklarını yakalar.
+
+Eğitim Süreci:
+Sistemi eğitmek için 140.000 adet yüz fotoğrafı (yarısı gerçek, yarısı sahte) kullanılmıştır. 
+Modelleri eğitirken en iyi ayarları (öğrenme oranı vb.) manuel olarak denemek yerine PSO (Parçacık Sürüsü Optimizasyonu) algoritması kullanılmıştır. 
+PSO, modellerin en yüksek başarıyı vereceği parametreleri otomatik olarak bulmuş ve modeller bu parametrelerle eğitilmiştir.
+
+predict.py Sistemin Çalışma Mantığı:
+-Kullanıcı arayüz üzerinden sisteme bir yüz fotoğrafı yükler.
+-Fotoğraf, arka planda çalışan bu üç modele aynı anda gönderilir.
+-Her model fotoğrafı inceler ve fotoğrafın gerçek veya sahte olduğuna dair 0 ile 1 arasında bir skor üretir.
+-Çıkan bu skorlar, modellerin etki oranlarıyla çarpılarak toplanır ve ortak bir matematiksel sonuca ulaşılır.
+
+Sonuç 0.5'ten büyükse sistem ekrana "GERÇEK", küçükse "SAHTE" yazdırır.
+======================================================================================================================================
+auto_run.py MANTIĞI
+======================================================================================================================================
+auto_run.py dosyasında, Kod çalışmaya başladığında ilk olarak "from train import train_model" komutuyla 
+train.py dosyasının içindeki asıl eğitim motorunu kendi içine çağırır. 
+Eğitimi kendisi yapmaz, train.py'ye yaptıracaktır.
+
+Daha sonrasında PSO ile hiperparametre optimizasyonu yapılacaktır. Projede gömülü değerler "DAHA ÖNCEDEN KOD TARAFINDAN HESAPLANAN"
+ve proje içine yazılan koddur. Her çalışma aşamasında uzun süreler geçirildiği için, bu sonuçlar parça parça toplanmıştır.
+
+Kodun en önemli noktası burasıdır. Hafızaya aldığı bu üç değeri ve eğitilecek modelin adını train_model fonksiyonuna gönderir.
+--> train_model("ResNet18", best_lr_res, best_drop_res, best_batch_res) <--
+
+Bu komut verildiği an auto_run.py artık kullanılmaz ve train.py başlar. 
+train.py veri setini çeker, 30 epochluk döngüyü başlatır ve en iyi .pth dosyasını kaydeder.
+======================================================================================================================================
