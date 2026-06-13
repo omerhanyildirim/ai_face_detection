@@ -16,6 +16,7 @@ def test_all_models():
     print("Modeller Yüklenecek...")
     models = {}
     
+<<<<<<< HEAD
     # 1. SimpleCNN Yükle
     try:
         cnn = SimpleCNN().to(device)
@@ -23,6 +24,11 @@ def test_all_models():
         cnn.eval()
         models['cnn'] = cnn
     except: print("Uyarı: SimpleCNN (best_deepfake_model.pth) bulunamadı.")
+=======
+    model = SimpleCNN().to(device)
+    model.load_state_dict(torch.load(model_path, map_location=device, weights_only=True))
+    model.eval()
+>>>>>>> e80b7f6c67c2c8d8be072b586a60f30dc7445ef3
 
     # 2. EfficientNet Yükle
     try:
@@ -32,6 +38,7 @@ def test_all_models():
         models['eff'] = eff
     except: print("Uyarı: EfficientNet (best_effnet_model.pth) bulunamadı.")
 
+<<<<<<< HEAD
     # 3. ResNet18 Yükle
     try:
         res = ResNet18Deepfake().to(device)
@@ -39,6 +46,12 @@ def test_all_models():
         res.eval()
         models['res'] = res
     except: print("Uyarı: ResNet18 (best_resnet18_model.pth) bulunamadı.")
+=======
+    stats = {
+        'real': {'correct': 0, 'total': 0},
+        'fake': {'correct': 0, 'total': 0}
+    }
+>>>>>>> e80b7f6c67c2c8d8be072b586a60f30dc7445ef3
 
     if not models:
         print("Test edilecek hiçbir model bulunamadı! Lütfen önce eğitim yapın.")

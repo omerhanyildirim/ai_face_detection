@@ -47,15 +47,24 @@ def evaluate_particle(position, device, model_name):
 
     # ALTIN ORAN PARAMETRELERİ
     num_epochs = 2 
+<<<<<<< HEAD
     PSO_TRAIN_SAMPLES = 4000  
     PSO_VALID_SAMPLES = 1500  
+=======
+    PSO_TRAIN_SAMPLES = 3000  
+    PSO_VALID_SAMPLES = 1000  
+>>>>>>> e80b7f6c67c2c8d8be072b586a60f30dc7445ef3
     
     max_train_steps = max(1, PSO_TRAIN_SAMPLES // batch)
     max_valid_steps = max(1, PSO_VALID_SAMPLES // batch)
 
     for epoch in range(num_epochs):
         model.train()
+<<<<<<< HEAD
         train_loop = tqdm(train_loader, desc=f"    [Ep {epoch+1}] Eğitim", leave=False, position=1, total=max_train_steps)
+=======
+        train_loop = tqdm(train_loader, desc=f"  [PSO - {model_name} Ep {epoch+1}] Eğitim (Mini-Set)", leave=False, total=max_train_steps)
+>>>>>>> e80b7f6c67c2c8d8be072b586a60f30dc7445ef3
         
         for step, (images, labels) in enumerate(train_loop):
             if step >= max_train_steps: break 
@@ -73,7 +82,11 @@ def evaluate_particle(position, device, model_name):
 
         model.eval()
         valid_loss_sum = 0
+<<<<<<< HEAD
         valid_loop = tqdm(valid_loader, desc=f"    [Ep {epoch+1}] Test ", leave=False, position=1, total=max_valid_steps)
+=======
+        valid_loop = tqdm(valid_loader, desc=f"  [PSO - {model_name} Ep {epoch+1}] Test (Mini-Set)", leave=False, total=max_valid_steps)
+>>>>>>> e80b7f6c67c2c8d8be072b586a60f30dc7445ef3
         
         with torch.no_grad():
             for step, (images, labels) in enumerate(valid_loop):
@@ -87,6 +100,7 @@ def evaluate_particle(position, device, model_name):
                     
                 valid_loss_sum += loss.item()
 
+<<<<<<< HEAD
     final_loss = valid_loss_sum / max_valid_steps
 
     # --- KRİTİK GPU TEMİZLİĞİ ---
@@ -103,6 +117,13 @@ def evaluate_particle(position, device, model_name):
 def run_pso(model_name):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"\n--- PSO Başlatılıyor: {model_name} ({device}) ---\n")
+=======
+    return valid_loss_sum / max_valid_steps
+
+def run_pso(model_name):
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"\n--- PSO başlatılıyor: {model_name} ({device}) ---")
+>>>>>>> e80b7f6c67c2c8d8be072b586a60f30dc7445ef3
 
     if model_name in ["EfficientNet", "ResNet18"]:
         bounds = [(-5.0, -3.0), (0.2, 0.6), (0.0, 2.0)] 
@@ -118,6 +139,7 @@ def run_pso(model_name):
     start_iteration = 0
     start_particle = 0
 
+<<<<<<< HEAD
     # --- KAYIT (CHECKPOINT) KONTROLÜ ---
     if os.path.exists(checkpoint_file):
         print(f"[*] {model_name} için önceki bir kayıt bulundu! Yükleniyor...")
@@ -128,6 +150,12 @@ def run_pso(model_name):
             global_best_loss = checkpoint_data['global_best_loss']
             start_iteration = checkpoint_data['iteration']
             start_particle = checkpoint_data['particle'] + 1 # Bir sonraki parçacıktan başla
+=======
+    for iteration in range(num_iterations):
+        for i, particle in enumerate(swarm):
+            loss = evaluate_particle(particle.position, device, model_name)
+            particle.current_loss = loss
+>>>>>>> e80b7f6c67c2c8d8be072b586a60f30dc7445ef3
 
         # Eğer o iterasyonun son parçacığı bitmişse, bir sonraki iterasyona geç
         if start_particle >= num_particles:
@@ -173,6 +201,7 @@ def run_pso(model_name):
                 swarm[i].best_position = list(swarm[i].position)
             if loss < global_best_loss:
                 global_best_loss = loss
+<<<<<<< HEAD
                 global_best_position = list(swarm[i].position)
             
             # 3. Hız ve Pozisyonu Hemen Güncelle (Asenkron PSO)
@@ -197,11 +226,24 @@ def run_pso(model_name):
                 }, f)
 
     pso_pbar.close()
+=======
+                global_best_position = list(particle.position)
+
+        for particle in swarm:
+            for d in range(len(bounds)):
+                r1, r2 = random.random(), random.random()
+                cognitive = c1 * r1 * (particle.best_position[d] - particle.position[d])
+                social = c2 * r2 * (global_best_position[d] - particle.position[d])
+                particle.velocity[d] = (w * particle.velocity[d]) + cognitive + social
+                particle.position[d] += particle.velocity[d]
+                particle.position[d] = max(bounds[d][0], min(particle.position[d], bounds[d][1]))
+>>>>>>> e80b7f6c67c2c8d8be072b586a60f30dc7445ef3
 
     best_lr = 10 ** global_best_position[0]
     best_drop = global_best_position[1]
     best_batch = [32, 64, 128][int(round(max(0, min(2, global_best_position[2]))))]
 
+<<<<<<< HEAD
     print("\n" + "="*50)
     print(f"{model_name.upper()} İÇİN PSO TAMAMLANDI!")
     print(f"En İyi Learning Rate : {best_lr:.6f}")
@@ -235,3 +277,7 @@ if __name__ == "__main__":
         print(f"Model: {model_adi:<15} | LR: {sonuclar['LR']:.6f} | Dropout: {sonuclar['Dropout']:.2f} | Batch: {sonuclar['Batch']}")
     print("#"*60)
     print("Not: Bu parametreleri train.py dosyanızda kullanarak asıl eğitime başlayabilirsiniz.")
+=======
+    print(f"{model_name} PSO tamamlandı! -> LR: {best_lr:.5f}, Drop: {best_drop:.2f}, Batch: {best_batch}")
+    return best_lr, best_drop, best_batch
+>>>>>>> e80b7f6c67c2c8d8be072b586a60f30dc7445ef3
