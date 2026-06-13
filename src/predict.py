@@ -5,46 +5,36 @@ import matplotlib.pyplot as plt
 import tkinter as tk
 from tkinter import filedialog
 import os
-from model import SimpleCNN, EfficientNetDeepfake, ResNet18Deepfake, ViTDeepfake
+from model import SimpleCNN, EfficientNetDeepfake, ResNet18Deepfake
 
 class AcademicEnsembleDetector:
     def __init__(self):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        print(f"🚀 State-of-the-Art Ensemble Sistem Başlatılıyor... Cihaz: {self.device}")
+        print(f"Sistem Başlatılıyor. Cihaz: {self.device}")
         print("-" * 50)
         
         self.models = {}
-        # Akademik Ağırlık Dağılımı
-        self.weights = {'vit': 0.40, 'eff': 0.35, 'res': 0.15, 'cnn': 0.10}
+        self.weights = {'res': 0.55, 'eff': 0.30, 'cnn': 0.15}
 
-        # 1. ViT Yükle (Global Dikkat)
-        try:
-            m = ViTDeepfake()
-            m.load_state_dict(torch.load("best_vit_model.pth", map_location=self.device, weights_only=True))
-            m.to(self.device).eval()
-            self.models['vit'] = m
-            print(f"✅ ViT (Global Dikkat Uzmanı) yüklendi. (Ağırlık: %{self.weights['vit']*100})")
-        except: print("⚠️ ViT bulunamadı.")
-
-        # 2. EfficientNet Yükle (Mikro Detay)
-        try:
-            m = EfficientNetDeepfake()
-            m.load_state_dict(torch.load("best_effnet_model.pth", map_location=self.device, weights_only=True))
-            m.to(self.device).eval()
-            self.models['eff'] = m
-            print(f"✅ EfficientNet (Mikro Detay Uzmanı) yüklendi. (Ağırlık: %{self.weights['eff']*100})")
-        except: print("⚠️ EfficientNet bulunamadı.")
-
-        # 3. ResNet18 Yükle (Makro Geometri)
+        # 1. ResNet18 (%55)
         try:
             m = ResNet18Deepfake()
             m.load_state_dict(torch.load("best_resnet18_model.pth", map_location=self.device, weights_only=True))
             m.to(self.device).eval()
             self.models['res'] = m
-            print(f"✅ ResNet18 (Makro Geometri Uzmanı) yüklendi. (Ağırlık: %{self.weights['res']*100})")
-        except: print("⚠️ ResNet18 bulunamadı.")
+            print(f"ResNet18 yüklendi. (Ağırlık: %{self.weights['res']*100})")
+        except: print("ResNet18 bulunamadı.")
 
-        # 4. SimpleCNN Yükle (Temel Sınıflandırıcı)
+        # 2. EfficientNet (%30)
+        try:
+            m = EfficientNetDeepfake()
+            m.load_state_dict(torch.load("best_effnet_model.pth", map_location=self.device, weights_only=True))
+            m.to(self.device).eval()
+            self.models['eff'] = m
+            print(f"EfficientNet yüklendi. (Ağırlık: %{self.weights['eff']*100})")
+        except: print("EfficientNet bulunamadı.")
+
+        # 3. SimpleCNN (%15)
         try:
             m = SimpleCNN()
             m.load_state_dict(torch.load("best_deepfake_model.pth", map_location=self.device, weights_only=True))
@@ -55,7 +45,7 @@ class AcademicEnsembleDetector:
 
         print("-" * 50)
         if not self.models:
-            print("Hiçbir model yüklenemedi! Lütfen .pth dosyalarınızın klasörde olduğundan emin olun.")
+            print("Hiçbir model yüklenemedi! .pth dosyalarını kontrol ediniz.")
             exit()
 
         self.transform = transforms.Compose([
@@ -64,7 +54,7 @@ class AcademicEnsembleDetector:
             transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
         ])
         
-        self.classes = {0: "FAKE (Sahte) 🚨", 1: "REAL (Gerçek) ✅"}
+        self.classes = {0: "FAKE (Sahte)", 1: "REAL (Gerçek)"}
 
     def analyze(self):
         root = tk.Tk()
@@ -91,7 +81,6 @@ class AcademicEnsembleDetector:
                         probs[name] = prob
                         print(f"  -> {name.upper():<4} Kararı: {'REAL' if prob>0.5 else 'FAKE'} (%{max(prob, 1-prob)*100:.1f})")
 
-            #Ağırlıklı Ortalama Hesaplama
             total_weight = sum([self.weights[name] for name in probs.keys()])
             final_prob = sum([(probs[name] * (self.weights[name] / total_weight)) for name in probs.keys()])
 
@@ -107,7 +96,7 @@ class AcademicEnsembleDetector:
             plt.imshow(image)
             plt.title(f"NİHAİ SONUÇ: {prediction_text}\nOrtak Güven: %{confidence*100:.2f}", color='green' if class_idx==1 else 'red', fontsize=14, fontweight='bold')
             plt.axis('off')
-            plt.gcf().canvas.manager.set_window_title("Yapay Zeka Karar Komitesi (4 Model)")
+            plt.gcf().canvas.manager.set_window_title("Çoklu model karar komisyonu")
             plt.show()
 
         except Exception as e: 

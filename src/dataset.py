@@ -5,7 +5,10 @@ from torch.utils.data import DataLoader
 
 def get_data_loaders(data_dir="../data/real_vs_fake", batch_size=64, image_size=128):
     train_dir = os.path.join(data_dir, 'train')
-    test_dir = os.path.join(data_dir, 'test')
+
+    valid_dir = os.path.join(data_dir, 'valid')
+    if not os.path.exists(valid_dir):
+        valid_dir = os.path.join(data_dir, 'test')
 
     train_transform = transforms.Compose([
         transforms.Resize((image_size, image_size)),
@@ -16,7 +19,7 @@ def get_data_loaders(data_dir="../data/real_vs_fake", batch_size=64, image_size=
         transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5]) 
     ])
 
-    test_transform = transforms.Compose([
+    valid_transform = transforms.Compose([
         transforms.Resize((image_size, image_size)),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5]) 
@@ -24,12 +27,33 @@ def get_data_loaders(data_dir="../data/real_vs_fake", batch_size=64, image_size=
 
     try:
         train_dataset = datasets.ImageFolder(root=train_dir, transform=train_transform)
-        test_dataset = datasets.ImageFolder(root=test_dir, transform=test_transform)
+        valid_dataset = datasets.ImageFolder(root=valid_dir, transform=valid_transform)
     except Exception as e:
-        print("HATA: Veri seti okunamadı! Klasör yollarını kontrol et.")
+        print("\nHATA: Veri seti okunamadı!")
+        print(f"Aranan Train Klasörü: {os.path.abspath(train_dir)}")
+        print(f"Aranan Test/Valid Klasörü: {os.path.abspath(valid_dir)}")
+        print(f"Sistem Mesajı: {e}\n")
         return None, None
 
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=2)
-    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
+    # SORUNU ÇÖZEN MÜDAHALE: Değer 0'a sabitlendi.
+    num_workers = 0
 
-    return train_loader, test_loader
+    train_loader = DataLoader(
+        train_dataset, 
+        batch_size=batch_size, 
+        shuffle=True, 
+        num_workers=num_workers, 
+        pin_memory=True,                                    
+        persistent_workers=False 
+    )
+    
+    valid_loader = DataLoader(
+        valid_dataset, 
+        batch_size=batch_size, 
+        shuffle=False, 
+        num_workers=num_workers, 
+        pin_memory=True,                                   
+        persistent_workers=False 
+    )
+
+    return train_loader, valid_loader

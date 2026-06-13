@@ -5,18 +5,19 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 from dataset import get_data_loaders
-from model import SimpleCNN, EfficientNetDeepfake, ResNet18Deepfake, ViTDeepfake
+from model import SimpleCNN, EfficientNetDeepfake, ResNet18Deepfake
+
+torch.backends.cudnn.benchmark = True
 
 def train_model(model_name, learning_rate, dropout_rate, batch_size):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"\n🚀 ASIL EĞİTİM BAŞLIYOR: {model_name} | Cihaz: {device}")
+    print(f"\nEĞİTİM BAŞLIYOR: {model_name} | Cihaz: {device}")
     
     PATIENCE = 5 
 
     train_loader, valid_loader = get_data_loaders(batch_size=batch_size)
     if train_loader is None: return
 
-    # OTOMATİK MODEL SEÇİMİ VE KAYIT YOLU (4 MODEL DESTEKLİ)
     if model_name == "SimpleCNN":
         model = SimpleCNN(dropout_rate=dropout_rate).to(device)
         save_path = "best_deepfake_model.pth"
@@ -26,9 +27,6 @@ def train_model(model_name, learning_rate, dropout_rate, batch_size):
     elif model_name == "ResNet18":
         model = ResNet18Deepfake(dropout_rate=dropout_rate).to(device)
         save_path = "best_resnet18_model.pth"
-    elif model_name == "ViT":
-        model = ViTDeepfake(dropout_rate=dropout_rate).to(device)
-        save_path = "best_vit_model.pth"
 
     criterion = nn.BCEWithLogitsLoss()
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
@@ -47,7 +45,7 @@ def train_model(model_name, learning_rate, dropout_rate, batch_size):
         train_loop = tqdm(train_loader, desc=f"  [Train - {model_name} Epoch {epoch+1}]")
         for img, lbl in train_loop:
             img, lbl = img.to(device), lbl.float().unsqueeze(1).to(device)
-            optimizer.zero_grad()
+            optimizer.zero_grad(set_to_none=True)
             
             with torch.amp.autocast('cuda'):
                 predictions = model(img)
@@ -96,15 +94,14 @@ def train_model(model_name, learning_rate, dropout_rate, batch_size):
             best_v_loss = avg_v_loss
             patience_counter = 0
             torch.save(model.state_dict(), save_path)
-            print(f"⭐ Yeni en iyi {model_name} modeli kaydedildi! (Valid Loss: {best_v_loss:.4f})")
+            print(f"Yeni en iyi {model_name} kaydedildi. (Valid Loss: {best_v_loss:.4f})")
         else:
             patience_counter += 1
 
         if patience_counter >= PATIENCE:
-            print("🛑 Erken Durdurma Tetiklendi!")
+            print("Erken Durdurma Yapıldı!")
             break 
 
-    # Grafikleri modele özel kaydet
     plt.figure(figsize=(14, 5)) 
     plt.subplot(1, 2, 1)
     plt.plot(history['train_loss'], label='Eğitim', color='blue')
@@ -120,4 +117,4 @@ def train_model(model_name, learning_rate, dropout_rate, batch_size):
     
     plt.tight_layout()
     plt.savefig(f'egitim_grafikleri_{model_name}.png', dpi=300)
-    print(f"📈 Grafik kaydedildi: egitim_grafikleri_{model_name}.png")
+    print(f"Grafik kaydedildi: egitim_grafikleri_{model_name}.png")
