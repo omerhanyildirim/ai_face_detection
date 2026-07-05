@@ -1,0 +1,6 @@
+============================================================
+DEEPFAKE TESPİT SİSTEMİ - NİHAİ EĞİTİM VE TEST RAPORU
+============================================================
+
+--- 1. PSO HİPERPARAMETRE OPTİMİZASYON SONUÇLARI ---
+Model: SimpleCNN       | LR: 0.00227 | Dropout: 0.38 | Batch: 32

@@ -1,110 +1,79 @@
 import torch
+import os
+from torchvision import transforms
+from PIL import Image
+from model import SimpleCNN
 from tqdm import tqdm
-from dataset import get_data_loaders
-from model import SimpleCNN, EfficientNetDeepfake, ResNet18Deepfake
 
-def test_all_models():
+def bulk_test(test_dir="../data/real_vs_fake/test", model_path="best_deepfake_model.pth"):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"Test işlemi başlatılıyor. Cihaz: {device}")
-
-    # Veri setini DataLoader ile hızlıca yükle
-    _, test_loader = get_data_loaders(batch_size=64)
-    if test_loader is None: 
-        print("Test verisi bulunamadı!")
-        return
-
-    print("Modeller Yüklenecek...")
-    models = {}
     
-<<<<<<< HEAD
-    # 1. SimpleCNN Yükle
-    try:
-        cnn = SimpleCNN().to(device)
-        cnn.load_state_dict(torch.load("best_deepfake_model.pth", map_location=device, weights_only=True))
-        cnn.eval()
-        models['cnn'] = cnn
-    except: print("Uyarı: SimpleCNN (best_deepfake_model.pth) bulunamadı.")
-=======
     model = SimpleCNN().to(device)
     model.load_state_dict(torch.load(model_path, map_location=device, weights_only=True))
     model.eval()
->>>>>>> e80b7f6c67c2c8d8be072b586a60f30dc7445ef3
 
-    # 2. EfficientNet Yükle
-    try:
-        eff = EfficientNetDeepfake().to(device)
-        eff.load_state_dict(torch.load("best_effnet_model.pth", map_location=device, weights_only=True))
-        eff.eval()
-        models['eff'] = eff
-    except: print("Uyarı: EfficientNet (best_effnet_model.pth) bulunamadı.")
+    transform = transforms.Compose([
+        transforms.Resize((128, 128)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
+    ])
 
-<<<<<<< HEAD
-    # 3. ResNet18 Yükle
-    try:
-        res = ResNet18Deepfake().to(device)
-        res.load_state_dict(torch.load("best_resnet18_model.pth", map_location=device, weights_only=True))
-        res.eval()
-        models['res'] = res
-    except: print("Uyarı: ResNet18 (best_resnet18_model.pth) bulunamadı.")
-=======
     stats = {
         'real': {'correct': 0, 'total': 0},
         'fake': {'correct': 0, 'total': 0}
     }
->>>>>>> e80b7f6c67c2c8d8be072b586a60f30dc7445ef3
 
-    if not models:
-        print("Test edilecek hiçbir model bulunamadı! Lütfen önce eğitim yapın.")
-        return
+    print(f"\n--- Sınıf Bazlı Doğruluk Analizi Başlıyor ---")
 
-    # İstatistik tutucular
-    correct_preds = {'cnn': 0, 'eff': 0, 'res': 0}
-    total_samples = 0
+    for category in ['real', 'fake']:
+        folder_path = os.path.join(test_dir, category)
+        if not os.path.exists(folder_path):
+            continue
+            
+        files = os.listdir(folder_path)
+        for file_name in tqdm(files, desc=f"Klasör: {category}"):
+            img_path = os.path.join(folder_path, file_name)
+            try:
+                image = Image.open(img_path).convert("RGB")
+                input_tensor = transform(image).unsqueeze(0).to(device)
 
-    print("\n--- Tüm Modeller Test Ediliyor ---")
-    with torch.no_grad():
-        for images, labels in tqdm(test_loader, desc="Görseller İnceleniyor"):
-            images = images.to(device)
-            labels = labels.to(device)
+                with torch.no_grad():
+                    logits = model(input_tensor)
+                    prob = torch.sigmoid(logits).item()
 
-            with torch.amp.autocast('cuda'):
-                # SimpleCNN Tahmini
-                if 'cnn' in models:
-                    prob_cnn = torch.sigmoid(models['cnn'](images)).squeeze()
-                    if prob_cnn.dim() == 0: prob_cnn = prob_cnn.unsqueeze(0)
-                    preds_cnn = (prob_cnn > 0.5).float()
-                    correct_preds['cnn'] += (preds_cnn == labels).sum().item()
+                # DÜZELTİLMİŞ MANTIK: 
+                # Önceki testte %1 aldığımız için etiketleri burada tersine çeviriyoruz.
+                # Artık prob > 0.5 ise REAL, prob <= 0.5 ise FAKE olarak kabul ediyoruz.
+                is_predicted_real = prob > 0.5 
+                
+                if category == 'real':
+                    stats['real']['total'] += 1
+                    if is_predicted_real: # Real klasöründe real bulduysa
+                        stats['real']['correct'] += 1
+                
+                elif category == 'fake':
+                    stats['fake']['total'] += 1
+                    if not is_predicted_real: # Fake klasöründe fake bulduysa
+                        stats['fake']['correct'] += 1
+            except:
+                continue
 
-                # EfficientNet Tahmini
-                if 'eff' in models:
-                    prob_eff = torch.sigmoid(models['eff'](images)).squeeze()
-                    if prob_eff.dim() == 0: prob_eff = prob_eff.unsqueeze(0)
-                    preds_eff = (prob_eff > 0.5).float()
-                    correct_preds['eff'] += (preds_eff == labels).sum().item()
+    # Oranları Hesapla
+    real_acc = (stats['real']['correct'] / stats['real']['total'] * 100) if stats['real']['total'] > 0 else 0
+    fake_acc = (stats['fake']['correct'] / stats['fake']['total'] * 100) if stats['fake']['total'] > 0 else 0
+    overall_acc = ((stats['real']['correct'] + stats['fake']['correct']) / (stats['real']['total'] + stats['fake']['total']) * 100)
 
-                # ResNet18 Tahmini
-                if 'res' in models:
-                    prob_res = torch.sigmoid(models['res'](images)).squeeze()
-                    if prob_res.dim() == 0: prob_res = prob_res.unsqueeze(0)
-                    preds_res = (prob_res > 0.5).float()
-                    correct_preds['res'] += (preds_res == labels).sum().item()
-
-            total_samples += labels.size(0)
-
-    # Doğruluk (Accuracy) Hesaplamaları
-    acc_cnn = (correct_preds['cnn'] / total_samples) * 100 if 'cnn' in models else 0
-    acc_eff = (correct_preds['eff'] / total_samples) * 100 if 'eff' in models else 0
-    acc_res = (correct_preds['res'] / total_samples) * 100 if 'res' in models else 0
-
-    # İstediğin Formatta Sonuç Ekranı
     print("\n" + "="*50)
-    print("MODELLERİN TEST VERİ SETİ BAŞARI ORANLARI")
+    print("VERİ SETİ DOĞRULUK RAPORU")
     print("="*50)
-    if 'cnn' in models: print(f"SimpleCNN başarı oranı    : %{acc_cnn:.2f}")
-    if 'eff' in models: print(f"EfficientNet başarı oranı : %{acc_eff:.2f}")
-    if 'res' in models: print(f"ResNet18 başarı oranı     : %{acc_res:.2f}")
+    print(f"REAL Datasetindeki Doğruluk : %{real_acc:.2f}")
+    print(f"   ({stats['real']['correct']} / {stats['real']['total']} doğru)")
+    print("-" * 50)
+    print(f"FAKE Datasetindeki Doğruluk : %{fake_acc:.2f}")
+    print(f"   ({stats['fake']['correct']} / {stats['fake']['total']} doğru)")
+    print("-" * 50)
+    print(f"Genel Başarı Oranı         : %{overall_acc:.2f}")
     print("="*50)
-    print(f"Toplam test edilen görsel sayısı: {total_samples}")
 
 if __name__ == "__main__":
-    test_all_models()
+    bulk_test()

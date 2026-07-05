@@ -1,24 +1,28 @@
-from train import train_model
+from pso_tune import run_pso
 
 def main():
     print("="*60)
-    print("DEEPFAKE TESPİT SİSTEMİ - EĞİTİM YÖNETİCİSİ")
+    print("DEEPFAKE TESPİT SİSTEMİ - SADECE PSO HESAPLAYICI")
     print("="*60)
-    print("Not: EfficientNet, ResNet18 ve SimpleCNN modelleri mevcutta eğitilmiştir.")
-    print("Modelleri baştan eğitmek isterseniz aşağıdaki yorum satırlarını kaldırın.\n")
+    print("Asıl eğitim YASAKLANDI. Yalnızca 5 parçacık ve 4 iterasyonluk PSO optimizasyonu çalıştırılıyor...\n")
 
-    """
-    # 1. ResNet18 Eğitimi
-    train_model("ResNet18", learning_rate=0.0001, dropout_rate=0.3, batch_size=64)
-    
-    # 2. EfficientNet Eğitimi
-    train_model("EfficientNet", learning_rate=0.0001, dropout_rate=0.3, batch_size=64)
-    
-    # 3. SimpleCNN Eğitimi
-    train_model("SimpleCNN", learning_rate=0.001, dropout_rate=0.5, batch_size=64)
-    """
+    modeller = ["ViT"]
+    pso_sonuclari = {}
 
-    print("Tüm modeller savaşa hazır! Lütfen arayüz için predict.py'yi çalıştırın.")
+    for model_adi in modeller:
+        best_lr, best_drop, best_batch = run_pso(model_adi)
+        pso_sonuclari[model_adi] = {
+            "LR": best_lr,
+            "Dropout": best_drop,
+            "Batch": best_batch
+        }
+
+    print("\n\n" + "#"*60)
+    print("NİHAİ PSO OPTİMİZASYON RAPORU".center(60))
+    print("#"*60)
+    for model_adi, sonuclar in pso_sonuclari.items():
+        print(f"Model: {model_adi:<15} | LR: {sonuclar['LR']:.6f} | Dropout: {sonuclar['Dropout']:.2f} | Batch: {sonuclar['Batch']}")
+    print("#"*60)
 
 if __name__ == "__main__":
     main()

@@ -2,7 +2,6 @@ import os
 import torch
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
-import multiprocessing
 
 def get_data_loaders(data_dir="../data/real_vs_fake", batch_size=64, image_size=128):
     train_dir = os.path.join(data_dir, 'train')
@@ -36,12 +35,8 @@ def get_data_loaders(data_dir="../data/real_vs_fake", batch_size=64, image_size=
         print(f"Sistem Mesajı: {e}\n")
         return None, None
 
-<<<<<<< HEAD
-    # SORUNU ÇÖZEN MÜDAHALE: Değer 0'a sabitlendi.
+    # SORUNU ÇÖZEN ALTIN AYAR: İşlemci okuması iptal edildi, doğrudan ana akış kullanılacak.
     num_workers = 0
-=======
-    num_workers = min(4, multiprocessing.cpu_count())
->>>>>>> e80b7f6c67c2c8d8be072b586a60f30dc7445ef3
 
     train_loader = DataLoader(
         train_dataset, 
@@ -49,11 +44,7 @@ def get_data_loaders(data_dir="../data/real_vs_fake", batch_size=64, image_size=
         shuffle=True, 
         num_workers=num_workers, 
         pin_memory=True,                                    
-<<<<<<< HEAD
         persistent_workers=False 
-=======
-        persistent_workers=True if num_workers > 0 else False
->>>>>>> e80b7f6c67c2c8d8be072b586a60f30dc7445ef3
     )
     
     valid_loader = DataLoader(
@@ -62,11 +53,7 @@ def get_data_loaders(data_dir="../data/real_vs_fake", batch_size=64, image_size=
         shuffle=False, 
         num_workers=num_workers, 
         pin_memory=True,                                   
-<<<<<<< HEAD
         persistent_workers=False 
-=======
-        persistent_workers=True if num_workers > 0 else False
->>>>>>> e80b7f6c67c2c8d8be072b586a60f30dc7445ef3
     )
 
     return train_loader, valid_loader

@@ -1,0 +1,370 @@
+======================================================================
+DEEPFAKE 4'LÜ KOMİTE - TOPLU ANALİZ RAPORU | Tarih: 2026-06-24 08:55:20
+======================================================================
+
+► DOSYA: 1.jpg
+   ├─ VIT         : FAKE (Güven: %99.9)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : REAL (Güven: %99.1)
+   ├─ CNN         : REAL (Güven: %62.3)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %57.73)
+----------------------------------------------------------------------
+► DOSYA: 2.jpg
+   ├─ VIT         : REAL (Güven: %100.0)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : REAL (Güven: %99.3)
+   ├─ CNN         : REAL (Güven: %100.0)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %99.87)
+----------------------------------------------------------------------
+► DOSYA: 3.jpg
+   ├─ VIT         : REAL (Güven: %97.6)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : FAKE (Güven: %68.0)
+   ├─ CNN         : REAL (Güven: %97.4)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %87.23)
+----------------------------------------------------------------------
+► DOSYA: 4.jpg
+   ├─ VIT         : REAL (Güven: %96.1)
+   ├─ EFF         : REAL (Güven: %99.9)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %93.8)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %80.82)
+----------------------------------------------------------------------
+► DOSYA: 5.jpg
+   ├─ VIT         : FAKE (Güven: %97.4)
+   ├─ EFF         : REAL (Güven: %99.4)
+   ├─ RES         : REAL (Güven: %99.9)
+   ├─ CNN         : REAL (Güven: %98.8)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %62.63)
+----------------------------------------------------------------------
+► DOSYA: 6.jpg
+   ├─ VIT         : REAL (Güven: %100.0)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : REAL (Güven: %93.5)
+   ├─ CNN         : REAL (Güven: %100.0)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %98.88)
+----------------------------------------------------------------------
+► DOSYA: 7.jpg
+   ├─ VIT         : FAKE (Güven: %95.2)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : FAKE (Güven: %99.8)
+   ├─ CNN         : FAKE (Güven: %72.1)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %61.07)
+----------------------------------------------------------------------
+► DOSYA: 8.jpg
+   ├─ VIT         : REAL (Güven: %81.5)
+   ├─ EFF         : REAL (Güven: %96.7)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %99.5)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %74.79)
+----------------------------------------------------------------------
+► DOSYA: 9.jpg
+   ├─ VIT         : FAKE (Güven: %99.1)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : FAKE (Güven: %99.9)
+   ├─ CNN         : REAL (Güven: %97.8)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %54.90)
+----------------------------------------------------------------------
+► DOSYA: 10.jpg
+   ├─ VIT         : REAL (Güven: %54.2)
+   ├─ EFF         : FAKE (Güven: %96.2)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %99.5)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %67.18)
+----------------------------------------------------------------------
+► DOSYA: 11.jpg
+   ├─ VIT         : FAKE (Güven: %99.1)
+   ├─ EFF         : REAL (Güven: %76.8)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %88.1)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %63.85)
+----------------------------------------------------------------------
+► DOSYA: 12.jpg
+   ├─ VIT         : REAL (Güven: %93.8)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : REAL (Güven: %66.8)
+   ├─ CNN         : REAL (Güven: %97.9)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %91.75)
+----------------------------------------------------------------------
+► DOSYA: 13.jpg
+   ├─ VIT         : REAL (Güven: %74.5)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : FAKE (Güven: %99.6)
+   ├─ CNN         : REAL (Güven: %100.0)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %73.37)
+----------------------------------------------------------------------
+► DOSYA: 14.jpg
+   ├─ VIT         : FAKE (Güven: %100.0)
+   ├─ EFF         : FAKE (Güven: %100.0)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : FAKE (Güven: %99.4)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %99.93)
+----------------------------------------------------------------------
+► DOSYA: 15.jpg
+   ├─ VIT         : REAL (Güven: %98.8)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : REAL (Güven: %99.9)
+   ├─ CNN         : REAL (Güven: %92.7)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %98.72)
+----------------------------------------------------------------------
+► DOSYA: 16.jpg
+   ├─ VIT         : FAKE (Güven: %100.0)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : FAKE (Güven: %99.0)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %65.89)
+----------------------------------------------------------------------
+► DOSYA: 17.jpg
+   ├─ VIT         : FAKE (Güven: %74.7)
+   ├─ EFF         : FAKE (Güven: %99.7)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %99.9)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %79.29)
+----------------------------------------------------------------------
+► DOSYA: 18.jpg
+   ├─ VIT         : REAL (Güven: %100.0)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : REAL (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %100.0)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %100.00)
+----------------------------------------------------------------------
+► DOSYA: 19.jpg
+   ├─ VIT         : REAL (Güven: %100.0)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : REAL (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %100.0)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %99.99)
+----------------------------------------------------------------------
+► DOSYA: 20.jpg
+   ├─ VIT         : REAL (Güven: %50.7)
+   ├─ EFF         : REAL (Güven: %71.8)
+   ├─ RES         : FAKE (Güven: %99.8)
+   ├─ CNN         : REAL (Güven: %95.1)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %54.18)
+----------------------------------------------------------------------
+► DOSYA: 21.jpg
+   ├─ VIT         : FAKE (Güven: %100.0)
+   ├─ EFF         : FAKE (Güven: %96.3)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %77.9)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %90.15)
+----------------------------------------------------------------------
+► DOSYA: 22.jpg
+   ├─ VIT         : REAL (Güven: %97.1)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : REAL (Güven: %99.1)
+   ├─ CNN         : REAL (Güven: %51.7)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %93.43)
+----------------------------------------------------------------------
+► DOSYA: 23.jpg
+   ├─ VIT         : REAL (Güven: %76.3)
+   ├─ EFF         : REAL (Güven: %99.9)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : FAKE (Güven: %94.5)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %63.56)
+----------------------------------------------------------------------
+► DOSYA: 24.jpg
+   ├─ VIT         : REAL (Güven: %86.2)
+   ├─ EFF         : REAL (Güven: %97.6)
+   ├─ RES         : REAL (Güven: %99.8)
+   ├─ CNN         : REAL (Güven: %69.0)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %90.51)
+----------------------------------------------------------------------
+► DOSYA: 25.jpg
+   ├─ VIT         : REAL (Güven: %86.2)
+   ├─ EFF         : REAL (Güven: %97.6)
+   ├─ RES         : REAL (Güven: %99.8)
+   ├─ CNN         : REAL (Güven: %69.0)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %90.51)
+----------------------------------------------------------------------
+► DOSYA: 26.jpg
+   ├─ VIT         : FAKE (Güven: %99.8)
+   ├─ EFF         : REAL (Güven: %51.2)
+   ├─ RES         : FAKE (Güven: %77.2)
+   ├─ CNN         : REAL (Güven: %100.0)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %67.66)
+----------------------------------------------------------------------
+► DOSYA: 27.jpg
+   ├─ VIT         : REAL (Güven: %100.0)
+   ├─ EFF         : FAKE (Güven: %63.2)
+   ├─ RES         : FAKE (Güven: %99.0)
+   ├─ CNN         : REAL (Güven: %100.0)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %61.68)
+----------------------------------------------------------------------
+► DOSYA: 28.jpg
+   ├─ VIT         : FAKE (Güven: %100.0)
+   ├─ EFF         : FAKE (Güven: %97.4)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %91.7)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %89.03)
+----------------------------------------------------------------------
+► DOSYA: 29.jpg
+   ├─ VIT         : REAL (Güven: %100.0)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : REAL (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %99.8)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %99.95)
+----------------------------------------------------------------------
+► DOSYA: 30.jpg
+   ├─ VIT         : FAKE (Güven: %93.9)
+   ├─ EFF         : REAL (Güven: %99.9)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %55.2)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %57.63)
+----------------------------------------------------------------------
+► DOSYA: 31.jpg
+   ├─ VIT         : FAKE (Güven: %98.8)
+   ├─ EFF         : REAL (Güven: %74.2)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : FAKE (Güven: %79.2)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %72.03)
+----------------------------------------------------------------------
+► DOSYA: 32.jpg
+   ├─ VIT         : REAL (Güven: %84.9)
+   ├─ EFF         : REAL (Güven: %67.1)
+   ├─ RES         : FAKE (Güven: %99.7)
+   ├─ CNN         : REAL (Güven: %100.0)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %66.14)
+----------------------------------------------------------------------
+► DOSYA: 33.jpg
+   ├─ VIT         : FAKE (Güven: %100.0)
+   ├─ EFF         : REAL (Güven: %96.7)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %99.5)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %56.18)
+----------------------------------------------------------------------
+► DOSYA: 34.jpg
+   ├─ VIT         : REAL (Güven: %67.7)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %96.6)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %70.36)
+----------------------------------------------------------------------
+► DOSYA: 35.jpg
+   ├─ VIT         : REAL (Güven: %100.0)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : REAL (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %100.0)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %99.99)
+----------------------------------------------------------------------
+► DOSYA: 36.jpg
+   ├─ VIT         : REAL (Güven: %99.3)
+   ├─ EFF         : REAL (Güven: %99.5)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : FAKE (Güven: %70.9)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %74.76)
+----------------------------------------------------------------------
+► DOSYA: 37.jpg
+   ├─ VIT         : FAKE (Güven: %100.0)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : FAKE (Güven: %99.7)
+   ├─ CNN         : REAL (Güven: %76.0)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %57.58)
+----------------------------------------------------------------------
+► DOSYA: 38.jpg
+   ├─ VIT         : FAKE (Güven: %90.6)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : REAL (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %100.0)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %65.57)
+----------------------------------------------------------------------
+► DOSYA: 39.jpg
+   ├─ VIT         : FAKE (Güven: %97.6)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : REAL (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %100.0)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %62.93)
+----------------------------------------------------------------------
+► DOSYA: 40.jpg
+   ├─ VIT         : FAKE (Güven: %93.4)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : FAKE (Güven: %99.9)
+   ├─ CNN         : FAKE (Güven: %99.7)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %63.45)
+----------------------------------------------------------------------
+► DOSYA: 41.jpg
+   ├─ VIT         : REAL (Güven: %100.0)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : REAL (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %100.0)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %100.00)
+----------------------------------------------------------------------
+► DOSYA: 42.jpg
+   ├─ VIT         : FAKE (Güven: %100.0)
+   ├─ EFF         : FAKE (Güven: %98.4)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : FAKE (Güven: %99.9)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %99.45)
+----------------------------------------------------------------------
+► DOSYA: 43.jpg
+   ├─ VIT         : REAL (Güven: %100.0)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %85.1)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %81.36)
+----------------------------------------------------------------------
+► DOSYA: 44.jpg
+   ├─ VIT         : FAKE (Güven: %99.9)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : REAL (Güven: %98.2)
+   ├─ CNN         : REAL (Güven: %100.0)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %61.74)
+----------------------------------------------------------------------
+► DOSYA: 45.jpg
+   ├─ VIT         : FAKE (Güven: %100.0)
+   ├─ EFF         : REAL (Güven: %97.4)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : FAKE (Güven: %99.9)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %66.88)
+----------------------------------------------------------------------
+► DOSYA: 46.jpg
+   ├─ VIT         : FAKE (Güven: %64.6)
+   ├─ EFF         : REAL (Güven: %97.5)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %51.7)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %52.29)
+----------------------------------------------------------------------
+► DOSYA: 47.jpg
+   ├─ VIT         : REAL (Güven: %100.0)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : FAKE (Güven: %78.6)
+   ├─ CNN         : REAL (Güven: %95.7)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %86.16)
+----------------------------------------------------------------------
+► DOSYA: 48.jpg
+   ├─ VIT         : FAKE (Güven: %88.3)
+   ├─ EFF         : REAL (Güven: %98.3)
+   ├─ RES         : FAKE (Güven: %99.9)
+   ├─ CNN         : REAL (Güven: %97.3)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %51.42)
+----------------------------------------------------------------------
+► DOSYA: 49.jpg
+   ├─ VIT         : FAKE (Güven: %59.3)
+   ├─ EFF         : REAL (Güven: %100.0)
+   ├─ RES         : REAL (Güven: %100.0)
+   ├─ CNN         : REAL (Güven: %99.9)
+   └─ KOMİTE NİHAİ KARARI : REAL (Gerçek) (Ortak Güven: %77.45)
+----------------------------------------------------------------------
+► DOSYA: 50.jpg
+   ├─ VIT         : FAKE (Güven: %100.0)
+   ├─ EFF         : FAKE (Güven: %100.0)
+   ├─ RES         : FAKE (Güven: %100.0)
+   ├─ CNN         : FAKE (Güven: %94.0)
+   └─ KOMİTE NİHAİ KARARI : FAKE (Sahte) (Ortak Güven: %99.33)
+----------------------------------------------------------------------
+
+======================================================================
+GENEL ÖZET
+======================================================================
+Toplam İncelenen Görsel : 50
+----------------------------------------------------------------------
+--- BİREYSEL MODEL KARARLARI ---
+[VIT         ] -> GERÇEK (REAL): 25   | SAHTE (FAKE): 25  
+[EFF         ] -> GERÇEK (REAL): 42   | SAHTE (FAKE): 8   
+[RES         ] -> GERÇEK (REAL): 18   | SAHTE (FAKE): 32  
+[CNN         ] -> GERÇEK (REAL): 40   | SAHTE (FAKE): 10  
+----------------------------------------------------------------------
+--- KOMİTE (ENSEMBLE) KARARI ---
+Toplam GERÇEK (REAL) : 31
+Toplam SAHTE (FAKE)  : 19
+======================================================================

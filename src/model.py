@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.init as init
 import torchvision.models as models
+from torchvision.transforms import Resize
 
 # SimpleCNN
 class SimpleCNN(nn.Module):
@@ -76,3 +77,23 @@ class ResNet18Deepfake(nn.Module):
 
     def forward(self, x):
         return self.resnet(x)
+    
+# ViT (Vision Transformer) Deepfake
+class ViTDeepfake(nn.Module):
+    def __init__(self, dropout_rate=0.5):
+        super(ViTDeepfake, self).__init__()
+        self.vit = models.vit_b_16(weights=models.ViT_B_16_Weights.DEFAULT)
+        in_features = self.vit.heads.head.in_features
+        
+        # Classifier kısmını (head) kendi 1 sınıflı (Binary) yapımıza uyarlıyoruz
+        self.vit.heads.head = nn.Sequential(
+            nn.Dropout(p=dropout_rate, inplace=True),
+            nn.Linear(in_features, 1)
+        )
+        
+        # ViT 224x224 beklediği için, 128x128 gelen tensörü modelin içinde büyütüyoruz
+        self.resize = Resize((224, 224), antialias=True)
+
+    def forward(self, x):
+        x = self.resize(x)
+        return self.vit(x)

@@ -5,7 +5,7 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 from dataset import get_data_loaders
-from model import SimpleCNN, EfficientNetDeepfake, ResNet18Deepfake
+from model import SimpleCNN, EfficientNetDeepfake, ResNet18Deepfake, ViTDeepfake
 
 torch.backends.cudnn.benchmark = True
 
@@ -27,6 +27,9 @@ def train_model(model_name, learning_rate, dropout_rate, batch_size):
     elif model_name == "ResNet18":
         model = ResNet18Deepfake(dropout_rate=dropout_rate).to(device)
         save_path = "best_resnet18_model.pth"
+    elif model_name == "ViT":  
+        model = ViTDeepfake(dropout_rate=dropout_rate).to(device)
+        save_path = "best_vit_model.pth"
 
     criterion = nn.BCEWithLogitsLoss()
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
@@ -118,3 +121,11 @@ def train_model(model_name, learning_rate, dropout_rate, batch_size):
     plt.tight_layout()
     plt.savefig(f'egitim_grafikleri_{model_name}.png', dpi=300)
     print(f"Grafik kaydedildi: egitim_grafikleri_{model_name}.png")
+
+if __name__ == "__main__":
+    # PSO tarafından hesaplanan optimum hiperparametreler
+    en_iyi_lr = 0.000026
+    en_iyi_dropout = 0.32
+    en_iyi_batch = 64
+    
+    train_model("ViT", learning_rate=en_iyi_lr, dropout_rate=en_iyi_dropout, batch_size=en_iyi_batch)
